@@ -9,7 +9,7 @@ readonly _PAG_LIB_FILESYSTEM_SH=1
 # Module: Filesystem
 # Purpose: Provides safe helper functions for filesystem operations.
 # Dependencies: mkdir, rm, cp, mv
-# Public API: fs_exists, fs_is_file, fs_is_dir, fs_create_dir, fs_remove, fs_copy, fs_move
+# Public API: fs_exists, fs_is_file, fs_is_dir, fs_create_dir, fs_remove, fs_copy, fs_move, fs_make_executable
 # Private API: _fs_is_safe_path
 # ==============================================================================
 
@@ -153,6 +153,20 @@ fs_move() {
 	[[ -e "${source}" ]] || return 1
 
 	mv "${source}" "${dest}" 2>/dev/null || return 1
+	return 0
+}
+
+# Safely makes a file executable.
+# Arguments:
+#   $1 - Path to make executable
+# Returns:
+#   0 on success, 1 on failure
+fs_make_executable() {
+	local target="$1"
+	_fs_is_safe_path "${target}" || return 1
+
+	[[ -e "${target}" ]] || return 1
+	chmod +x "${target}" 2>/dev/null || return 1
 	return 0
 }
 

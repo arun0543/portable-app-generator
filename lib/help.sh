@@ -3,21 +3,21 @@ set -euo pipefail
 IFS=$'\n\t'
 
 if [[ -z "${_PAG_LIB_HELP_SH:-}" ]]; then
-readonly _PAG_LIB_HELP_SH=1
+	readonly _PAG_LIB_HELP_SH=1
 
-# ==============================================================================
-# Module: Help
-# Purpose: Formatting and displaying CLI help information.
-# Dependencies: None
-# Public API: help_print_global, help_print_command
-# Private API: None
-# ==============================================================================
+	# ==============================================================================
+	# Module: Help
+	# Purpose: Formatting and displaying CLI help information.
+	# Dependencies: None
+	# Public API: help_print_global, help_print_command
+	# Private API: None
+	# ==============================================================================
 
-# Prints global help documentation
-# Arguments: None
-# Returns: 0
-help_print_global() {
-	cat <<'EOF'
+	# Prints global help documentation
+	# Arguments: None
+	# Returns: 0
+	help_print_global() {
+		cat <<'EOF'
 Portable App Generator (PAG)
 
 Usage:
@@ -44,17 +44,17 @@ Flags:
 
 Run 'pag help <command>' for more information on a command.
 EOF
-	return 0
-}
+		return 0
+	}
 
-# Prints command-specific help documentation
-# Arguments:
-#   $1 - Command name
-# Returns: 0
-help_print_command() {
-	local cmd="$1"
-	# Future extension point: dynamic command help lookup and plugin command help
-	case "${cmd}" in
+	# Prints command-specific help documentation
+	# Arguments:
+	#   $1 - Command name
+	# Returns: 0
+	help_print_command() {
+		local cmd="$1"
+		# Future extension point: dynamic command help lookup and plugin command help
+		case "${cmd}" in
 		new)
 			cat <<'EOF'
 Usage: pag new <type> <path>
@@ -64,7 +64,7 @@ Types:
   template   Scaffold a new template project
 EOF
 			;;
-		build|export)
+		build | export)
 			cat <<'EOF'
 Usage: pag build <path> <output_archive>
 
@@ -81,8 +81,8 @@ EOF
 		*)
 			printf 'No detailed help available for command: %s\n' "${cmd}"
 			;;
-	esac
-	return 0
-}
+		esac
+		return 0
+	}
 
 fi

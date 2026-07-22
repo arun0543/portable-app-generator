@@ -13,7 +13,8 @@ IFS=$'\n\t'
 # Globals and Constants
 # ==============================================================================
 
-readonly PAG_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PAG_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly PAG_ROOT
 readonly PAG_VERSION_FILE="${PAG_ROOT}/VERSION"
 readonly PAG_LIB="${PAG_ROOT}/lib"
 readonly PAG_PLUGIN_DIR="${PAG_ROOT}/plugins"
@@ -48,8 +49,18 @@ bootstrap() {
 # @return 0 on success.
 # ------------------------------------------------------------------------------
 load_framework() {
+	export PAG_LIB_DIR="${PAG_LIB}"
+
 	# shellcheck disable=SC1091
-	[[ -f "${PAG_LIB}/logger.sh" ]] && source "${PAG_LIB}/logger.sh"
+	if [[ -f "${PAG_LIB}/loader.sh" ]]; then
+		source "${PAG_LIB}/loader.sh"
+	else
+		printf "Error: loader.sh not found in %s\n" "${PAG_LIB}" >&2
+		return 1
+	fi
+
+	framework_require logger || return 1
+	framework_require cli || return 1
 
 	return 0
 }
@@ -75,28 +86,8 @@ verify_structure() {
 # @return 0 on success, 1 on error.
 # ------------------------------------------------------------------------------
 parse_cli() {
-	if [[ "$#" -eq 0 ]]; then
-		printf "Usage: ./generator.sh [options]\n"
-		return 0
-	fi
-
-	local arg
-	for arg in "$@"; do
-		case "${arg}" in
-			-h | --help)
-				printf "Usage: ./generator.sh [options]\n"
-				return 0
-				;;
-			-v | --version)
-				printf "PAG Version: %s\n" "$(get_version)"
-				return 0
-				;;
-			*)
-				printf "Error: Unknown argument '%s'\n" "${arg}" >&2
-				return 1
-				;;
-		esac
-	done
+	# Save arguments for dispatch
+	_PAG_CLI_ARGS=("$@")
 	return 0
 }
 
@@ -105,6 +96,7 @@ parse_cli() {
 # @return 0 on success.
 # ------------------------------------------------------------------------------
 dispatch() {
+	cli_main "${_PAG_CLI_ARGS[@]:-}" || return 1
 	return 0
 }
 

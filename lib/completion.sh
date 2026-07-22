@@ -3,23 +3,23 @@ set -euo pipefail
 IFS=$'\n\t'
 
 if [[ -z "${_PAG_LIB_COMPLETION_SH:-}" ]]; then
-readonly _PAG_LIB_COMPLETION_SH=1
+	readonly _PAG_LIB_COMPLETION_SH=1
 
-framework_require registry_cli
+	framework_require registry_cli
 
-# ==============================================================================
-# Module: Completion
-# Purpose: Shell auto-completion script generation.
-# Dependencies: None
-# Public API: completion_generate_bash
-# Private API: None
-# ==============================================================================
+	# ==============================================================================
+	# Module: Completion
+	# Purpose: Shell auto-completion script generation.
+	# Dependencies: None
+	# Public API: completion_generate_bash
+	# Private API: None
+	# ==============================================================================
 
-# Generates the bash completion script to stdout
-# Arguments: None
-# Returns: 0
-completion_generate_bash() {
-	cat <<'EOF'
+	# Generates the bash completion script to stdout
+	# Arguments: None
+	# Returns: 0
+	completion_generate_bash() {
+		cat <<'EOF'
 # PAG Bash Completion
 _pag_completions() {
 	local cur prev opts cmds
@@ -48,7 +48,7 @@ _pag_completions() {
 }
 complete -F _pag_completions pag
 EOF
-	return 0
-}
+		return 0
+	}
 
 fi

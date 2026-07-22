@@ -1,36 +1,37 @@
 # Contributing to Portable App Generator (PAG)
 
-First off, thank you for considering contributing to Portable App Generator (PAG)! 
+First off, thank you for considering contributing to PAG!
 
-## Code of Conduct
+## Development Setup
+1. Clone the repository: `git clone https://github.com/your-org/portable-app-generator.git`
+2. Ensure you have Bash 5.x installed.
+3. Install `shellcheck` and `shfmt`.
 
-By participating in this project, you are expected to uphold our [Code of Conduct](CODE_OF_CONDUCT.md).
+## Coding Standards
+- **Bash 5.x only**.
+- Always include `set -euo pipefail` and `IFS=$'\n\t'`.
+- All variables must be quoted.
+- Do not use `exit` inside library modules; return status codes instead.
+- Use `framework_require()` instead of `source`.
+- Keep functions small and reusable.
 
-## How Can I Contribute?
+## Testing Workflow
+- Run tests via the integrated test suite: `./tests/run.sh`
+- Ensure all tests pass before submitting a PR.
+- Add new tests for any new features or bug fixes.
 
-### Reporting Bugs
+## Commit Conventions
+We follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/):
+- `feat:` for new features
+- `fix:` for bug fixes
+- `docs:` for documentation changes
+- `refactor:` for code refactoring
 
-- Ensure the bug was not already reported by searching on GitHub under Issues.
-- If you're unable to find an open issue addressing the problem, open a new one. Be sure to include a title and clear description, as much relevant information as possible, and a code sample or an executable test case demonstrating the expected behavior that is not occurring.
-
-### Suggesting Enhancements
-
-- Open a new issue with a clear title and description.
-- Provide a detailed explanation of the proposed enhancement, including its use cases and potential benefits.
-
-### Pull Requests
-
+## Pull Request Process
 1. Fork the repo and create your branch from `main`.
-2. Ensure your code adheres to strict Bash 5.x guidelines (`set -euo pipefail`).
-3. Ensure your scripts pass ShellCheck and shfmt formatting.
-4. Update the documentation if you change any functionality.
-5. Issue that pull request!
+2. Run `shellcheck` and `shfmt` over your code.
+3. Run the test suite.
+4. Open a Pull Request using the provided template.
 
-## Styleguides
-
-### Git Commit Messages
-
-- Use the present tense ("Add feature" not "Added feature").
-- Use the imperative mood ("Move cursor to..." not "Moves cursor to...").
-- Limit the first line to 72 characters or less.
-- Reference issues and pull requests liberally after the first line.
+## Issue Reporting
+Use the provided issue templates for bugs and feature requests. Please provide as much context as possible.

@@ -2,20 +2,25 @@
 
 ## Supported Versions
 
-We only provide security updates for the current major version of the Portable App Generator.
+Currently, we provide security updates for the following versions of PAG:
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 0.1.x   | :white_check_mark: |
-| < 0.1.0 | :x:                |
+| 1.0.x   | :white_check_mark: |
+| < 1.0   | :x:                |
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability within the Portable App Generator, please send an e-mail to the maintainers. All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within PAG, please do not disclose it publicly.
 
-Please provide as much information as possible, including:
-- A detailed description of the vulnerability.
-- Steps to reproduce the issue.
-- Potential impact and any suggested mitigation.
+Instead, please report it via email to security@example.com or use GitHub's private vulnerability reporting feature. 
+You can expect a response within 48 hours.
 
-You should receive a response within 48 hours acknowledging receipt of your report and outlining the next steps.
+## Disclosure Policy
+
+We will investigate the issue and determine if a patch is required. Once the patch is available, we will notify you and credit you for the discovery (if desired). A public disclosure will only happen after the patch has been released.
+
+## Security Best Practices
+- Always verify GPG signatures when downloading external plugins.
+- Ensure repositories are configured to use HTTPS.
+- Use lockfiles (`pag.lock`) to prevent dependency substitution attacks.
